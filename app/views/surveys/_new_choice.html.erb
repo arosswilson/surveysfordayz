@@ -1,9 +1,10 @@
-<div>
+<div id="question_text">
   <h5><%= question.text %></h5>
-  <div>
-    <%= form_for [survey, choice], url: survey_choices_path(@survey.id) do |f| %>
-      <%= f.label :choice %>  <%= f.text_field :text %>  <%= f.submit "Add choice" %>
-      <%= f.hidden_field :question_id, value: question.id %>
-    <% end %>
-  </div>
+  <ul id="choice_list">
+      <%= form_for [survey, choice], url: survey_choices_path(@survey.id) do |f| %>
+        <%= f.label :choice %>  <%= f.text_field :text %>  <%= f.submit "Add choice" %>
+        <%= f.hidden_field :question_id, value: question.id %>
+      <% end %>
+  </ul>
+
  </div>

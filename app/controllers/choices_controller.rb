@@ -1,7 +1,10 @@
 class ChoicesController < ApplicationController
   def create
-    @choice = Choice.create(choice_params)
-    redirect_to :back
+    if request.xhr?
+      @choice = Choice.create(text: params[:text], question_id: params[:question_id])
+      render partial: ""
+    # @choice = Choice.create(choice_params)
+    # redirect_to :back
   end
 
   def destroy

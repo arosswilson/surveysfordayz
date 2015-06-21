@@ -1,8 +1,14 @@
 class QuestionsController < ApplicationController
   def create
-    @question = Question.create(question_params)
-    @choice = Choice.new
-    redirect_to :back #double check this later
+    if request.xhr?
+      @survey = Survey.find_by(id: params[:survey_id])
+      @question = Question.create(text: params[:text],survey_id: params[:survey_id])
+      render partial: "surveys/new_choice", locals: {survey: @survey, question: @question, choice: Choice.new }
+    else
+      @question = Question.create(question_params)
+      @choice = Choice.new
+      # redirect_to :back #double check this later
+    end
   end
 
   def form

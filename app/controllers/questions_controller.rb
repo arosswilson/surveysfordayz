@@ -10,6 +10,11 @@ class QuestionsController < ApplicationController
     render partial: 'surveys/question', locals: { question: Question.new }
   end
 
+  def destroy
+    Question.find_by(id: params[:id]).destroy
+    redirect_to :back
+  end
+
   private
     def question_params
       params.require(:question).permit(:text, :survey_id)

@@ -1,0 +1,3 @@
+<%= form_tag survey_question_path(survey_id: @survey.id, id: question.id), method: "delete" do %>
+  <%= submit_tag "delete question" %>
+<% end %>

@@ -5,8 +5,8 @@ class ChoicesController < ApplicationController
   end
 
   def destroy
-    p params
-    render plain: "hi"
+    Choice.find_by(id: params[:id]).destroy
+    redirect_to :back
   end
 
   private

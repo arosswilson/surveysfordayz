@@ -6,12 +6,13 @@
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <%= render "surveys/question", question: @question %>
 <% @survey.questions.each do |question| %>
-  <%= question.text %><br>
+  <%= question.text %> <%= render partial: "surveys/delete_question", locals: {question: question, survey: @survey} %>
+  <br>
   <%= render partial: "surveys/choice", locals: {question: question, choice: @choice, survey: @survey } %>
   Choices: <br>
   <% question.choices.each do |choice| %>
 
-   <%= choice.text %><%= render partial: "surveys/delete_choice", locals: {question: question, choice: choice, survey: @survey } %><br>
+   <%= choice.text %><%= render partial: "surveys/delete_choice", locals: {choice: choice, survey: @survey } %><br>
   <% end %>
   <br>
 <% end %>

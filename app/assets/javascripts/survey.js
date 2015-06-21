@@ -28,7 +28,7 @@ $(document).ready(function() {
     .done(function(newQuestionForm){
       $("#new_survey").hide();
       $(".questions").prepend(newQuestionForm);
-      $(document).ready(function() {
+      // $(document).ready(function() {
         $("#new_question").on("submit", function(event) {
           event.preventDefault();
           var $question = $("#question_text").val();
@@ -40,7 +40,7 @@ $(document).ready(function() {
           .done(function (newChoiceForm){
             $("#question_text").val("");
             $(".questions").append(newChoiceForm);
-            $(document).ready(function () {
+            // $(document).ready(function () {
               $("#new_choice").on("submit", function(event) {
                 event.preventDefault();
                 var $choice_path = $("#new_choice").attr("action");
@@ -51,32 +51,29 @@ $(document).ready(function() {
                   method: "POST",
                   data: {text: $choice,question_id: $question_id}
                 })
-                .done(function () {
-                  console.log("hell yeah!");
+                .done(function (choiceText) {
+                  var $list = $("#new_choice").parent()
+                  $list.prepend(choiceText);
+                  $("#choice_text").val("");
                 })
                 .fail(function () {
                   console.log("sad little baby");
                 })
               });
-            });
+            // });
           })
           .fail(function () {
             console.log("sad tiger");
           })
         });
-      });
+      // });
     })
     .fail(function() {
       console.log("sad panda");
     });
   });
-
-
 });
 
-$(document).ready(function() {
-  $("#new_question").on("submit", function(event) {
-    event.preventDefault();
-    debugger;
-  });
-});
+
+
+

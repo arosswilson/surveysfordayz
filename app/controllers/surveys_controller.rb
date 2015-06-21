@@ -1,17 +1,26 @@
 class SurveysController < ApplicationController
   def new
+
     @survey = Survey.new
   end
 
   def create
-    @survey = Survey.new(survey_params)
-    if @survey.save
-      # uncomment once User stuff is set
-      # @user = User.find_by(id: session[:user_id])
-      # @user.surveys << @survey
-      redirect_to @survey
+    if request.xhr?
+      @survey = Survey.new(title: params["title"])
+      if @survey.save
+        render partial: "new_question", locals: {survey: @survey, question: Question.new}
+      end
     else
-      redirect_to :back
+      @survey = Survey.new(survey_params)
+
+      if @survey.save
+        # uncomment once User stuff is set
+        # @user = User.find_by(id: session[:user_id])
+        # @user.surveys << @survey
+        redirect_to @survey
+      else
+        redirect_to :back
+      end
     end
   end
 

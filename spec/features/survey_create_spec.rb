@@ -19,7 +19,7 @@ feature 'User auth' do
     fill_in 'Password', with: user.password
     click_button 'Login'
     click_button 'Logout'
-    expect(page).to have_content "Click to create account"
+    expect(page).to have_link "Click to create account"
   end
 end
 

@@ -31,6 +31,7 @@ describe SessionsController do
       post :create, user: {email: user.email, password: user.password}
       delete :destroy
       expect(session[:user_id]).to be_nil
+      expect(response).to redirect_to(root_path)
     end
   end
 end

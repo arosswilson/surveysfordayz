@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe SessionsController do
+  let!(:user) {User.create(:email => "bob@bob.com", :password => "something")}
 
   describe "GET /new" do
     it "should take to login page" do
@@ -11,7 +12,7 @@ describe SessionsController do
   end
 
   describe "POST /sessions" do
-  let!(:user) {User.create(:email => "bob@bob.com", :password => "something")}
+  # let!(:user) {User.create(:email => "bob@bob.com", :password => "something")}
     it "should allow login" do
       post :create, user: {email: user.email, password: user.password}
       expect(response).to be_redirect
@@ -19,4 +20,12 @@ describe SessionsController do
     end
   end
 
+  # describe "session[:user_id]?" do
+  # let!(:user) {User.create(:email => "bob@bob.com", :password => "something")}
+  #   it "session should exist" do
+  #     post :create, user: {email: user.email, password: user.password}
+  #     expect(response).to be_redirect
+  #     expect(response).to redirect_to(user)
+  #   end
+  # end
 end

@@ -24,5 +24,12 @@ describe SurveysController do
       post :create, survey: {title: "test survey"}
       expect(response).to redirect_to survey_path(Survey.last.id)
     end
+
+    it 'should increase the survey count when created' do
+      session[:user_id] = user.id
+      expect {
+        post :create, survey: {title: "test survey"}
+      }.to change(Survey, :count).by(1)
+    end
   end
 end

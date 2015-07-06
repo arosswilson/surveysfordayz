@@ -24,6 +24,7 @@ end
 feature 'Create survey' do
   given!(:user) { User.create(email: "bob@bob.com", password: "pants") }
   given!(:survey) {Survey.new(title: "our dear lord", user_id: user.id)}
+  given!(:question) {Question.new(text: "totes mcgee", survey_id: survey.id)}
   before(:each) do
     visit root_path
     fill_in 'Email', with: user.email
@@ -54,5 +55,17 @@ feature 'Create survey' do
     survey.save
     title = "#{survey.title}"
     expect(page).to have_content title
+  end
+
+  it 'should show added question' do
+    click_button "Create a Survey"
+    fill_in 'Title', with: survey.title
+    click_button "Add title"
+    survey.save
+    fill_in 'question_text', with: question.text
+    click_button "Add question"
+    question.save
+    first_q = survey.questions.first
+    expect(page).to have_content first_q
   end
 end

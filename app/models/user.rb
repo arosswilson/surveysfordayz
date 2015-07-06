@@ -5,9 +5,4 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
   validates :password, presence: true
-
-  def authenticate(password)
-     self.password == password
-  end
-
 end

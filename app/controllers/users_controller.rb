@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
   def create
-    @user = User.create(user_params)
-    session[:user_id] = @user.id
-    redirect_to login_path
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to login_path
+    else
+      render :new
+    end
   end
 
   def new
@@ -10,11 +13,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    @user = User.find(params[:id])
   end
 
-  def login
-  end
   private
 
   def user_params

@@ -80,7 +80,6 @@ feature 'Create survey' do
     question.save
     fill_in 'text', with: choice.text
     click_button "create choice"
-    binding.pry
     first_c = question.choices.last
     expect(page).to have_content first_c
   end

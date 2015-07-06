@@ -2,9 +2,6 @@ require 'rails_helper'
 
 describe User do
   let(:user) {User.new(email: 'bob@example.com', password: '123')}
-  before(:each) do
-
-  end
 
   it "should exist" do
     expect(User).to be_truthy

@@ -1,12 +1,16 @@
 class SessionsController < ApplicationController
 
   def create
-    @user= User.find_by(email: user_params[:email])
+    @user = User.find_by(email: user_params[:email])
     if @user != nil
-          session[:user_id] = @user.id
-          redirect_to "/users/#{@user.id}"
+      if @user.authenticate(user_params[:password])
+        session[:user_id] = @user.id
+        redirect_to @user
+      else
+        render :new
+      end
     else
-      redirect_to root_path
+      render :new
     end
   end
 
@@ -15,8 +19,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-      session[:user_id] = nil
-      redirect_to root_path
+    session.clear
+    redirect_to root_path
   end
 
   private
@@ -24,5 +28,4 @@ class SessionsController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password)
   end
-
 end

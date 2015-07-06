@@ -17,6 +17,12 @@ describe SessionsController do
       expect(response).to be_redirect
       expect(response).to redirect_to(user)
     end
+
+    it "should fail login" do
+      post :create, user: {email: user.email, password: "blah blah blah"}
+      expect(response).to be_redirect
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe "session[:user_id]?" do

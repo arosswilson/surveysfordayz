@@ -33,4 +33,24 @@ feature 'Create survey' do
     click_button 'Login'
     expect(page).to have_button "Create a Survey"
   end
+
+  it 'should take you to new survey page' do
+    visit root_path
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Login'
+    click_button "Create a Survey"
+    expect(page).to have_button "Add title"
+  end
+
+  it 'should go back to user landing page' do
+    visit root_path
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Login'
+    click_button "Create a Survey"
+    click_button "back"
+    greeting = "Hello #{user.email}!"
+    expect(page).to have_content greeting
+  end
 end

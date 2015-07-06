@@ -43,3 +43,9 @@ end
 
 gem 'pry-rails', :group => :development
 
+# gem 'rspec-rails'
+
+group :development, :test do
+  gem 'rspec-rails'
+end
+

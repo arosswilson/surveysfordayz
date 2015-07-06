@@ -25,4 +25,12 @@ describe SessionsController do
       expect(session[:user_id]).to eq(user.id)
     end
   end
+
+  describe "destroy /sessions" do
+    it "should destroy session" do
+      post :create, user: {email: user.email, password: user.password}
+      delete :destroy
+      expect(session[:user_id]).to be_nil
+    end
+  end
 end
